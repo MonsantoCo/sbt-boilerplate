@@ -19,7 +19,9 @@ object BoilerplatePlugin extends Plugin {
 
       target in boilerplateGenerate <<= (sourceManaged in Compile),
 
+      boilerplateGenerate <<= (streams, sourceDirectory in boilerplateGenerate, target in boilerplateGenerate) map generateFromTemplates,
       boilerplateGenerate <<= (streams, sourceDirectories in boilerplateGenerate, target in boilerplateGenerate) map generateFromTemplates,
+
 
       (sourceGenerators in Compile) <+= boilerplateGenerate,
       (managedSourceDirectories in Compile) <+= target in boilerplateGenerate,
