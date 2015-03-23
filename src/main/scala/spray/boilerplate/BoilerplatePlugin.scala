@@ -15,13 +15,10 @@ object BoilerplatePlugin extends Plugin {
 
     val settings = Seq(
       sourceDirectory in boilerplateGenerate <<= (sourceDirectory in Compile) / "boilerplate",
-      //sourceDirectories in boilerplateGenerate <<= (sourceDirectories in Compile),
 
       target in boilerplateGenerate <<= (sourceManaged in Compile),
 
       boilerplateGenerate <<= (streams, sourceDirectory in boilerplateGenerate, target in boilerplateGenerate) map generateFromTemplates,
-      //boilerplateGenerate <<= (streams, sourceDirectories in boilerplateGenerate, target in boilerplateGenerate) map generateFromTemplates,
-
 
       (sourceGenerators in Compile) <+= boilerplateGenerate,
       (managedSourceDirectories in Compile) <+= target in boilerplateGenerate,
@@ -42,15 +39,10 @@ object BoilerplatePlugin extends Plugin {
     def descendents(sourceDir: File, filt: FileFilter, excl: FileFilter) =
       descendantsExcept(sourceDir, filt, excl).get
 
-    //def generateFromTemplates(streams: TaskStreams, sourceDir: Seq[File], targetDir: File): Seq[File] = {
     def generateFromTemplates(streams: TaskStreams, sourceDir: File, targetDir: File): Seq[File] = {  
-      
-      streams.log.info("attempting to generate from template")
       
       val files = sourceDir ** "*.template"
       
-      streams.log.info("there are " + files + " files " + files.getClass.toString)
-
       def changeExtension(f: File): File = {
         val (ext, name) = f.getName.reverse.span(_ != '.')
         new File(f.getParent, name.drop(1).reverse.toString)
@@ -62,7 +54,6 @@ object BoilerplatePlugin extends Plugin {
 
       mapping foreach {
         case (templateFile, target) ⇒
-          streams.log.info("checking mod time on " + templateFile)
           if (templateFile.lastModified > target.lastModified) {
             streams.log.info("Generating '%s' -> '%s'" format (target.getName, target))
             val template = IO.read(templateFile)
