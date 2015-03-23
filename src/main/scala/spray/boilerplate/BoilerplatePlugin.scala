@@ -15,12 +15,12 @@ object BoilerplatePlugin extends Plugin {
 
     val settings = Seq(
       sourceDirectory in boilerplateGenerate <<= (sourceDirectory in Compile) / "boilerplate",
-      sourceDirectories in boilerplateGenerate <<= (sourceDirectories in Compile),
+      //sourceDirectories in boilerplateGenerate <<= (sourceDirectories in Compile),
 
       target in boilerplateGenerate <<= (sourceManaged in Compile),
 
       boilerplateGenerate <<= (streams, sourceDirectory in boilerplateGenerate, target in boilerplateGenerate) map generateFromTemplates,
-      boilerplateGenerate <<= (streams, sourceDirectories in boilerplateGenerate, target in boilerplateGenerate) map generateFromTemplates,
+      //boilerplateGenerate <<= (streams, sourceDirectories in boilerplateGenerate, target in boilerplateGenerate) map generateFromTemplates,
 
 
       (sourceGenerators in Compile) <+= boilerplateGenerate,
