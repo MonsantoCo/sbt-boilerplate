@@ -41,6 +41,9 @@ object BoilerplatePlugin extends Plugin {
       descendantsExcept(sourceDir, filt, excl).get
 
     def generateFromTemplates(streams: TaskStreams, sourceDir: Seq[File], targetDir: File): Seq[File] = {
+      
+      streams.log.info("attempting to generate from template")
+      
       val files = sourceDir ** "*.template"
 
       def changeExtension(f: File): File = {
