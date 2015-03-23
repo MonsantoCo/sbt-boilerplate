@@ -46,7 +46,7 @@ object BoilerplatePlugin extends Plugin {
       
       val files = sourceDir ** "*.template"
       
-      streams.log.info("there are " + files.length + " files")
+      streams.log.info("there are " + files + " files")
 
       def changeExtension(f: File): File = {
         val (ext, name) = f.getName.reverse.span(_ != '.')
