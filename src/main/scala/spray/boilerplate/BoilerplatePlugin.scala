@@ -59,6 +59,7 @@ object BoilerplatePlugin extends Plugin {
 
       mapping foreach {
         case (templateFile, target) ⇒
+          streams.log.info("checking mod time on " + templateFile)
           if (templateFile.lastModified > target.lastModified) {
             streams.log.info("Generating '%s' -> '%s'" format (target.getName, target))
             val template = IO.read(templateFile)
