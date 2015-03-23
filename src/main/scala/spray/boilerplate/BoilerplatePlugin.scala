@@ -42,7 +42,8 @@ object BoilerplatePlugin extends Plugin {
     def descendents(sourceDir: File, filt: FileFilter, excl: FileFilter) =
       descendantsExcept(sourceDir, filt, excl).get
 
-    def generateFromTemplates(streams: TaskStreams, sourceDir: Seq[File], targetDir: File): Seq[File] = {
+    //def generateFromTemplates(streams: TaskStreams, sourceDir: Seq[File], targetDir: File): Seq[File] = {
+    def generateFromTemplates(streams: TaskStreams, sourceDir: File, targetDir: File): Seq[File] = {  
       
       streams.log.info("attempting to generate from template")
       
